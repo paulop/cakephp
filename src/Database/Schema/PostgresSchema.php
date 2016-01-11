@@ -304,12 +304,13 @@ class PostgresSchema extends BaseSchema
 
             WHERE kcu.table_name = ?
               AND kc.table_schema = ?
+              AND kcu.table_schema = ?
               AND tc.constraint_type = 'FOREIGN KEY'
 
             ORDER BY rc.constraint_name, kcu.ordinal_position";
 
         $schema = empty($config['schema']) ? 'public' : $config['schema'];
-        return [$sql, [$tableName, $schema]];
+        return [$sql, [$tableName, $schema, $schema]];
     }
 
     /**
